@@ -33,6 +33,15 @@ abstract class Model{
         return $rows;
     }
 
+    function get_values_type($value) {
+    if (is_int($value)) return 'i';
+    if (is_float($value)) return 'd';
+    if (is_string($value)) return 's';
+    if (is_null($value)) return 's'; 
+    return 's'; 
+   }
+
+
     public function create($table, $data,mysqli $connection) {
 
         $columns = implode(', ', array_keys($data));
@@ -42,10 +51,15 @@ abstract class Model{
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $result = $connection->prepare($sql);
         
-         $result ->bind_param()
+        foreach($data as $value){
+            $res =get_values_type($value);
+            $value_type.=$res;
+        }
+
+         $result ->bind_param($value_type,array_value($data));
         return $result->execute();
 
-}
+    }
 
 
 }
