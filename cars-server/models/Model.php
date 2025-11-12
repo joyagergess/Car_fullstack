@@ -63,6 +63,7 @@ abstract class Model{
 
     }
 
+
    public function update($data, string $primaryKey, $primaryValue, mysqli $connection) {
 
     $set = implode(', ', array_map(fn($key) => "$key = ?", array_keys($data)));
@@ -77,14 +78,24 @@ abstract class Model{
     foreach ($data as $value) {
         $value_type .= $this->get_values_type($value);
     }
-
     $value_type .= $this->get_values_type($primaryValue);
     $values = array_merge(array_values($data), [$primaryValue]);
-
     $result->bind_param($value_type, ...$values);
 
     return $result->execute();
   }
+ 
+
+
+  public function delete(string $primaryKey, $primaryValue, mysqli $connection) {
+    $sql = "DELETE FROM " . static::$table . " WHERE $primaryKey = ?";
+    $result = $connection->prepare($sql);
+
+    $value_type = $this->get_values_type($primaryValue);
+    $result->bind_param($value_type, $primaryValue);
+
+    return $result->execute();
+}
 
 }
 
