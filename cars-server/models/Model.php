@@ -42,7 +42,7 @@ abstract class Model{
    }
 
 
-    public function create($table, $data,mysqli $connection) {
+    public function create( $data,mysqli $connection) {
 
         $columns = implode(', ', array_keys($data));
 

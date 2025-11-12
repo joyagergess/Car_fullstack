@@ -39,4 +39,24 @@ class CarController {
 
    }
 }
+
+function createCars(){
+    global $connection;
+
+     $data = [
+            'name' => $_POST['name'],
+            'year' => $_POST['year'],
+            'color' => $_POST['color']
+        ];
+
+    $car=CarService::createCars();
+
+    if ($car){
+        echo ResponseService::response(200,$car);
+    }
+    else{
+     echo ResponseService::response(500, "Failed to create car");
+    } 
+
+   }
 ?>
