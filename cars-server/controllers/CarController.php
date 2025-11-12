@@ -7,29 +7,36 @@ class CarController {
    
     function getCarByID(){
         global $connection;
-
-        if(isset($_GET["id"])){
-            $id = $_GET["id"];
-        }else{
-            echo ResponseService::response(500, "ID is missing");
-            return;
+     try{
+          if(isset($_GET["id"])){
+              $id = $_GET["id"];
+          }else{
+              echo ResponseService::response(500, "ID is missing");
+              return;
+          }
+          
+          $car = CarService::findCarByID($id);
+          echo ResponseService::response(200, $car);
+          return;
+  
+          }catch (Exception $e) {
+              echo ResponseService::response(500, "Server Error: " . $e->getMessage());
         }
-       
-        
-        $car = CarService::findCarByID($id);
-        echo ResponseService::response(200, $car);
-        return;
     }
+
+
 
     function getCars(){
         global $connection;
-
+     try{
         $car=CarService::findAllCars();
         echo ResponseService::response(200,$car);
         return;
+
+     }catch (Exception $e) {
+        echo ResponseService::response(500, "Server Error: " . $e->getMessage());
     }
 
-    //try catch 
+   }
 }
-
 ?>
