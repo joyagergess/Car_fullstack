@@ -63,6 +63,25 @@ abstract class Model{
 
     }
 
+public function update($data, string $primaryKey, $primaryValue, mysqli $connection) {
+    $set = implode(', ', array_map(fn($key) => "$key = ?", array_keys($data)));
+
+    $sql = "UPDATE " . static::$table . " SET $set WHERE $primaryKey = ?";
+    $result = $connection->prepare($sql);
+
+   $value_type="";
+
+    foreach($data as $value){
+        
+        $value_type .= $this->get_values_type($value);
+    }
+
+    $values = array_merge(array_values($data), [$primaryValue]);
+
+    $result->bind_param($value_type, ...$values);
+
+    return $result->execute();
+}
 
 }
 
