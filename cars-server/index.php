@@ -15,8 +15,10 @@ if ($request == '') {
 //array of routes - a mapping between routes and controller name and method!
 //remove routes from here!! 
 $apis = [
-    '/cars'         => ['controller' => 'CarController', 'method' => 'getCarByID'],
-    '/users'         => ['controller' => 'UserController', 'method' => 'getUsers']
+    '/Allcars' => ['controller' => 'CarController', 'method' => 'getCars'],
+
+    '/cars'    => ['controller' => 'CarController', 'method' => 'getCarByID'],
+    '/users'  => ['controller' => 'UserController', 'method' => 'getUsers']
 ];
 
 if (isset($apis[$request])) {

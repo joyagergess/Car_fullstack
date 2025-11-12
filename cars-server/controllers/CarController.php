@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../models/Car.php");
 require_once(__DIR__ . "/../connection/connection.php");
-require_once(__DIR__ . "/../services/CarServices.php");
+require_once(__DIR__ . "/../services/CarService.php");
 
 class CarController {
    
@@ -15,11 +15,17 @@ class CarController {
             return;
         }
        
-        //not allowed to write logic in my controller!!!
-        //$car = Car::find($connection, $id);
-        //$car = $car ? $car->toArray() : [];
+        
         $car = CarService::findCarByID($id);
         echo ResponseService::response(200, $car);
+        return;
+    }
+
+    function getCars(){
+        global $connection;
+
+        $car=CarService::findAllCars();
+        echo ResponseService::response(200,$car);
         return;
     }
 
