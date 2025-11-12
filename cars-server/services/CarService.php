@@ -19,15 +19,5 @@ class CarService {
     return $carsArray;
     }
 
-    function CreateCars($data){
-     global $connection;
 
-        $car= new Car($data);
-       if( $car->create($data,$connection)){
-        return $car;
-       }else{
-        return null;
-       }
-
-    }
 }

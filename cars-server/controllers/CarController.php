@@ -59,4 +59,32 @@ function createCars(){
     } 
 
    }
+
+
+    function updateCar() {
+    global $connection;
+
+    $id = $_POST["id"] ;
+    $name = $_POST["name"] ;
+    $year = $_POST["year"];
+    $color = $_POST["color"];
+
+    if (!$id) {
+        echo ResponseService::response(400, "Car ID is required");
+        return;
+    }
+    $data = [
+        "name" => $name,
+        "year" => $year,
+        "color" => $color
+    ];
+
+    $updated = CarService::updateCar($data, $id, $connection);
+
+    if ($updated) {
+        echo ResponseService::response(200, "Car updated successfully");
+    } else {
+        echo ResponseService::response(500, "Failed to update car");
+    }
+   }
 ?>
