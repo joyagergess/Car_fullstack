@@ -20,4 +20,25 @@ class CarService {
     }
 
 
+
+    function CreateCars($data){
+     global $connection;
+
+     if (!$id) {
+        echo ResponseService::response(400, "Car ID is required");
+        return;
+      }
+        $car= new Car($data);
+       if( $car->create($data,$connection)){
+        return $car;
+       }else{
+        return null;
+       }
+    }
+
+
+   public static function updateCar($data, $id, mysqli $connection) {
+    global $connection;
+    return Car::update($data, "id", $id, $connection);
+    }
 }
