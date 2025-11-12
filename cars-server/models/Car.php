@@ -10,7 +10,7 @@ class Car extends Model {
     protected static string $table = "cars";
 
     public function __construct(array $data){
-        $this->id = $data["id"];
+  
         $this->name = $data["name"];
         $this->year = $data["year"];
         $this->color = $data["color"];
@@ -44,6 +44,7 @@ class Car extends Model {
         return ["id" => $this->id, "name" => $this->name, "year" => $this->year, "color" => $this->color];
     }
 
-}
 
+  
+}
 ?>

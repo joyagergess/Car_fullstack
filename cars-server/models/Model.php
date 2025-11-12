@@ -46,21 +46,23 @@ abstract class Model{
 
         $columns = implode(', ', array_keys($data));
 
-        $placeholders = implode (',' ,array_fill(0, count($data),?));
-
+        $placeholders = implode(',', array_fill(0, count($data), '?'));
+  
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $result = $connection->prepare($sql);
         
+        $value_type="";
+
         foreach($data as $value){
-            $res =get_values_type($value);
-            $value_type.=$res;
+            
+            $value_type .= $this->get_values_type($value);
         }
 
-         $result ->bind_param($value_type,array_value($data));
-        return $result->execute();
+         $result ->bind_param($value_type,...array_values($data));
+         return $result->execute();
 
     }
 
 
 }
-?>
+
