@@ -1,11 +1,19 @@
 <?php
 include("../connection/connection.php");
 
-$sql = "ALTER TABLE ... ";
 
+$id = 1;
+$name = "Toyota";
+$color = "Red";
+$year = 2023;
+$price = 25000;
+
+$sql = "INSERT INTO cars (id, name, color, year, price) VALUES (?, ?, ?, ?, ?)";
 $query = $connection->prepare($sql);
-$query->execute();
 
-echo "Table(s) Updated!";
-
+if($query->execute([$id, $name, $color, $year, $price])){
+    echo "Data inserted successfully!";
+} else {
+    echo "Failed to insert data.";
+}
 ?>

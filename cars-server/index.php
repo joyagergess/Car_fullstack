@@ -23,8 +23,8 @@ if (isset($apis[$request])) {
     $controller_name = $apis[$request]['controller']; 
     $method = $apis[$request]['method'];
     require_once "controllers/{$controller_name}.php";
-    
-    $controller = new $controller_name();
+        $controller = new $controller_name();
+
     if (method_exists($controller, $method)) {
         $controller->$method();
     } else {
